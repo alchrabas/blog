@@ -1,0 +1,6 @@
+[submodule "crowsfoot"]
+	path = crowsfoot
+	url = git://github.com/alchrabas/crowsfoot.git
+[submodule "pelican-plugins"]
+	path = pelican-plugins
+	url = git://github.com/getpelican/pelican-plugins.git
