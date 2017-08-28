@@ -3,7 +3,7 @@
 from __future__ import unicode_literals
 
 AUTHOR = 'Aleksander Chrabąszcz'
-SITENAME = 'alchrabas\' Blog'
+SITENAME = 'Commentarii'
 SITEURL = '.' # https://alchrabas.pl
 
 PATH = 'content'
@@ -22,33 +22,29 @@ AUTHOR_FEED_ATOM = None
 AUTHOR_FEED_RSS = None
 
 THEME = 'crowsfoot'
-SITESUBTITLE = 'a private blog of Aleksander Chrabąszcz'
+SITESUBTITLE = 'Aleksander Chrabąszcz\'s Blog'
 DISPLAY_PAGES_ON_MENU = True
 
 STATIC_PATHS = ['images']
 PROFILE_IMAGE_URL = "/images/transparent-logo-180.png"
 
 EMAIL_ADDRESS = 'alchrabas@alchrabas.pl'
-GITHUB_ADDRESS = 'https://github.com/alchrabas/blog-alchrabas'
+GITHUB_ADDRESS = 'https://github.com/alchrabas/blog'
 TWITTER_ADDRESS = 'https://twitter.com/alchrabas'
 
-"""
-# Blogroll
-LINKS = (('Taiga.io', 'https://tree.taiga.io/project/greekpl-exeris/'),
-         ('Github repository', 'https://github.com/alchrabas/exeris'),
-         ('Forum', 'https://forum.exeris.org/'),
-        )
-
-# Social widget
-SOCIAL = (('Twitter', 'https://twitter.com/exerisorg'),
-         )
-"""
 
 PAGE_URL = '{slug}'
 PAGE_SAVE_AS = '{slug}.html'
 
-INDEX_SAVE_AS = 'blog.html'
-DISPLAY_INDEX_ON_MENU = True
+DISPLAY_PAGES_ON_MENU = False
+MENUITEMS = (
+                ('Home', '/'),
+                ('Posts', '/posts.html'),
+                ('About me', '/about.html'),
+            )
+
+INDEX_SAVE_AS = 'posts.html'
+DISPLAY_INDEX_ON_MENU = False
 
 DEFAULT_PAGINATION = False
 
