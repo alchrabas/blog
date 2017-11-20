@@ -1,6 +1,5 @@
 title: Home
 save_as: index.html
 
-Hello!
-123
+Hi! Welcome on my simple home page. That's the place where I'd like to write about the things I'm working on in my free time.
 
