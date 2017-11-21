@@ -1,14 +1,20 @@
 Title: Bestaro - A library to help in finding lost pets
+Slug: bestaro-finding-lost-pets
 Date: 2017-01-23 22:45:00
 Tags: bestaro, animals
+Category: haha
 Authors: Aleksander Chrabąszcz
 Summary: Overview of the library and service that displays information about lost and found animals on a map
+
 
 I was thinking what should be the first topic to present on this blog and the answer is pretty simple: a library I'm working since June.
 
 Bestaro is a library that tries to make life easier for Polish people who lost or found an animal, especially dogs or cats.
 
-The library consists of two parts. The first one - backend - is responsible for collecting data of existing announcements about lost or found pets, extracting the data from the text, geolocating the place where the event happened and storing it with the picture as a standarized record. The second part - frontend - is responsible for presenting it as a  handy map, where it's possible to filter the records displayed on the map, for example based on the event date.
+The library consists of two parts:
+
+ *  backend - responsible for collecting data of existing announcements about lost or found pets, extracting the data from the text, geolocating the place where the event happened and storing it with the picture as a standarized record.
+ *  frontend - responsible for presenting it as a  handy map, where it's possible to filter the records displayed on the map, for example based on the event date.
 
 It sounds pretty easy, but it's not. The toughest part right now is parsing the announcements from the web and getting important information. The additional concern is that the messages I'm working on are in Polish, which has lots of inflection. That means unspecified word order in the sentence and trouble in finding out which part of the message mentions the location.
 
