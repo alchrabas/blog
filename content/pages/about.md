@@ -1,7 +1,7 @@
 title: About me
 save_as: about.html
 
-My name is Aleksander Chrabąszcz and I'm a programmer from Kraków, Poland. Currently I'm working as a Software Engineer in Guidewire Software.
+My name is Aleksander Chrabąszcz and I'm living in Kraków, Poland. Currently I'm working as a Software Engineer in Guidewire Software.
 
 When it goes to programming I'm mostly tied to JVM. Among others, I know Java, Python, ES6, CSS, Scala, PHP, Gosu, SQL (especially MySQL, also Postgres + PostGIS).
 
