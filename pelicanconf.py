@@ -28,7 +28,7 @@ DISPLAY_PAGES_ON_MENU = True
 STATIC_PATHS = ['images']
 PROFILE_IMAGE_URL = "/images/transparent-logo-180.png"
 
-EMAIL_ADDRESS = 'alchrabas@alchrabas.pl'
+EMAIL_ADDRESS = 'alchrabas@exeris.org'
 GITHUB_ADDRESS = 'https://github.com/alchrabas/blog'
 TWITTER_ADDRESS = 'https://twitter.com/alchrabas'
 
@@ -41,6 +41,7 @@ MENUITEMS = (
                 ('Home', '/'),
                 ('Posts', '/posts.html'),
                 ('About me', '/about.html'),
+                ('My projects', '/projects.html'),
             )
 
 INDEX_SAVE_AS = 'posts.html'
