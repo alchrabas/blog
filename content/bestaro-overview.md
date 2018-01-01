@@ -41,5 +41,30 @@ In short: each word is being evaluated and gets a score mening how likely it's g
 
 ## Frontend - displaying the data on map
 
+Frontend is responsible for displaying the records produced by the Backend.
+My brief research has suggested, that there are two main actors and use-cases that need to be supported by the application:
 
+ - a person walking around and noticing a probably lost pet. They should be able to quickly check the list of lost pets in the neighbourhood using their mobile phone
+ - a person who lost a pet. Most likely checking the large area around the home on the desktop
 
+It means the application must be **extremely** easy to use on mobile devices and should make it possible to see large amounts of data on the desktop. I've quickly crafted a solution and presented it to Joanna, a UX designer.
+
+I got feedback that there is a lot to improve.
+
+So I've started the process of making it correctly. About the technicals, first I wanted to make it all in the bare native ES6 without any frontend libraries, but I ended with React + Redux + Webpack.
+
+So, after the improvement, the user interface of Bestaro looks like this:
+
+![Map and list of animals on desktop](/images/bestaro-overview/frontend-desktop.png)
+<p style="text-align:center;">On desktop</p>
+
+On the right you can see the map of the area. The center of the map is considered the observer's location, from which all distances are calculated.
+
+On the left you can see the list of all the records. The ones that are closest to the center of the map are on top. To filter the events by date you can use the dropdown on top.
+
+When you click on the picture or the pin on the map, then you can see the record's details: exact date, full-size picture and a link to the original announcement.
+
+![Two views on mobile: 1. map with pins, 2. list of animals](/images/bestaro-overview/frontend-mobile.png)
+<p style="text-align:center;">On mobile</p>
+
+On mobile you need to click on the big button on the landing page to show the map. Then you need to click another big button to enter the animals list. But the general idea is the same.
