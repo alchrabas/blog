@@ -9,3 +9,4 @@ My other interests include foreign languages and history.
 
 Natural languages I know best are Polish and English. I also know German, Esperanto and a bit of Latin, but the latter only for reading, so don't try to talk with me as I'll be pretty embarassed. ;)
 
+You can contact me using email visible on the top bar of the page: aleksander@chrabasz.cz

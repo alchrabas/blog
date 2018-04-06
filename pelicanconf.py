@@ -29,7 +29,7 @@ DISPLAY_PAGES_ON_MENU = True
 STATIC_PATHS = ['images']
 PROFILE_IMAGE_URL = "/images/transparent-logo-180.png"
 
-EMAIL_ADDRESS = 'alchrabas@exeris.org'
+EMAIL_ADDRESS = 'aleksander@chrabasz.cz'
 GITHUB_ADDRESS = 'https://github.com/alchrabas/blog'
 TWITTER_ADDRESS = 'https://twitter.com/alchrabas'
 
