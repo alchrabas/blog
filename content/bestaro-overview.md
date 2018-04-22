@@ -2,7 +2,7 @@ Title: Bestaro - Service to help in finding lost pets
 Slug: bestaro-finding-lost-pets
 Date: 2018-01-23 22:45:00
 Tags: bestaro, animals
-Category: haha
+Category: bestaro
 Authors: Aleksander Chrabąszcz
 Summary: Overview of the library and service that displays information about lost and found animals on a map
 

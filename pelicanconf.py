@@ -32,7 +32,7 @@ PROFILE_IMAGE_URL = "/images/transparent-logo-180.png"
 EMAIL_ADDRESS = 'aleksander@chrabasz.cz'
 GITHUB_ADDRESS = 'https://github.com/alchrabas/blog'
 TWITTER_ADDRESS = 'https://twitter.com/alchrabas'
-
+LINKEDIN_ADDRESS = 'https://www.linkedin.com/in/aleksander-chrab%C4%85szcz-ab256513a/'
 
 PAGE_URL = '{slug}'
 PAGE_SAVE_AS = '{slug}.html'
@@ -56,4 +56,15 @@ PLUGINS = ['share_post']
 
 # Uncomment following line if you want document-relative URLs when developing
 # RELATIVE_URLS = True
+
+
+# Monkey patch to make PHP snippets highlight without <?php
+from pygments.lexers.web import PhpLexer
+
+if not hasattr(PhpLexer, '_wrapped_init'):
+    PhpLexer._wrapped_init = PhpLexer.__init__
+    def new_php_init(self, **options):
+        options['_startinline'] = True
+        PhpLexer._wrapped_init(self, **options)
+    PhpLexer.__init__ = new_php_init
 
