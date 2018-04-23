@@ -10,9 +10,9 @@ I didn't plan to write anything about things unrelated to programming and my cod
 
 The first 'private' post is about my appearance in a TV quiz show produced by the polish public television.
 
-# The rules of the show
-
 'Jeden z Dziesięciu', based on the British 'Fifteen to One' format, is the interesting quiz show I'm watching (with varying frequency) at least since the year 2000.
+
+# The rules of the show
 
 To start, there are ten participants who need to answer the questions. Every player can make at most two mistakes.  
 Players, after a correct answer, choose who should be asked next. This phase continues until just three players remain in the game. They take part in the final.  
@@ -48,12 +48,11 @@ Your browser doesn't support HTML5 video player
 
 I was asked the following questions:
 
-
 ### Stage 1
 Q: Was [Ondraszek](https://pl.wikipedia.org/wiki/Ondraszek) a real person?  
 A: Yes
 
-Q: Which suits of [cards](https://en.wikipedia.org/wiki/Playing_card#French_suits) are red?
+Q: Which suits of [cards](https://en.wikipedia.org/wiki/Playing_card#French_suits) are red?  
 A: Karo (Diamonds) and Kier (Hearts) - in Poland we use French names
 
 ### Stage 2
@@ -69,10 +68,10 @@ A: Yes
 Q: [Ingrid Bergman](https://en.wikipedia.org/wiki/Ingrid_Bergman) and [Ingmar Bergman](https://en.wikipedia.org/wiki/Ingmar_Bergman) - did they have the same nationality?  
 A: Yes, both Swedish. (I failed. No idea why I didn't remember that and had suspicion that Ingmar could be Danish)
 
-Q: Whose last name is mentioned in a first aid <i>manouver</i> in case of choking?
+Q: Whose last name is mentioned in a first aid <i>manouver</i> in case of choking?  
 A: Heimlich's Manouver (I didn't know the answer)
 
-Q: What does the English name 'Fox Trot' mean exactly in Polish?
+Q: What does the English name 'Fox Trot' mean exactly in Polish?  
 A: I've said 'Lisi chód' (literally: walk of the fox), which wasn't the expected answer but it was accepted
 
 ### Stage 3 - Final
@@ -96,7 +95,7 @@ was next to Białystok - a capital of Podlaskie ;)</p>
 Q: [Thrombocytes](https://en.wikipedia.org/wiki/Platelet) - which tissue are they part of?  
 A: Connective tissue (The more precise answer could be: fluid connective tissue, also known as blood)
 
-Q: On which American Battleship did [Japan sign a surrender in 1945](https://en.wikipedia.org/wiki/Surrender_of_Japan)? 
+Q: On which American Battleship did [Japan sign a surrender in 1945](https://en.wikipedia.org/wiki/Surrender_of_Japan)?  
 A: USS Missouri (I gave no answer)
 
 Q: Question about two polish names of far-sightedness. This question is not translatable into English.  
@@ -107,13 +106,15 @@ A: Giovanni Giacomo Girolamo (My answer was French 'Jean' which is John, just as
 
 # What next?
 
+Together with a justification to visit Lublin, Mrs. Sylwia has given me a watch and a few smaller gifts.
+
 I'll be allowed to play again in four years. I can't wait for that, because it was so much fun. :)  
-More than a year ago I've started to take notes of the hard questions and I'm going to continue that. Next time I'll be prepared much better ;)
+More than a year ago I've started to take notes of the hard questions and I'm going to continue that. Next time I'll be much better prepared ;)
 
 ![My notes - hard questions and my results](/images/jeden-z-dziesieciu/my-notes.png)
 <p style="text-align:center">My notes are pretty hard to read</p>
 
-Another challenge is to digitalize a few thousands of questions I've already written in my notebook. I keep the new ones in the Excel spreadsheet, but I didn't even start to move the old ones there.
+Another challenge is to digitalize a few thousand questions I've already written in my notebook. I keep the new ones in the Excel spreadsheet, but I didn't even start to move the old ones there.
 
 In the spreadsheet I also keep my daily results. No surprise that my real appearance in the show was one of the worst in terms of the percent of questions I've managed to answer correctly. ;)
 
