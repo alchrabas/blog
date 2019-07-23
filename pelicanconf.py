@@ -26,8 +26,17 @@ THEME = 'crowsfoot'
 SITESUBTITLE = 'Aleksander Chrabąszcz\'s Blog'
 DISPLAY_PAGES_ON_MENU = True
 
-STATIC_PATHS = ['images']
-PROFILE_IMAGE_URL = "/images/transparent-logo-180.png"
+STATIC_PATHS = ['images', 'extra']
+PROFILE_IMAGE_URL = "images/transparent-logo-180.png"
+EXTRA_PATH_METADATA = {
+    'extra/apple-touch-icon.png': {'path': 'apple-touch-icon.png'},
+    'extra/android-chrome-144x144.png': {'path': 'android-chrome-144x144.png'},
+    'extra/browserconfig.xml': {'path': 'browserconfig.xml'},
+    'extra/favicon-16x16.png': {'path': 'favicon-16x16.png'},
+    'extra/favicon-32x32.png': {'path': 'favicon-32x32.png'},
+    'extra/favicon.ico': {'path': 'favicon.ico'},
+    'extra/site.webmanifest': {'path': 'site.webmanifest'},
+}
 
 EMAIL_ADDRESS = 'aleksander@chrabasz.cz'
 GITHUB_ADDRESS = 'https://github.com/alchrabas/blog'
