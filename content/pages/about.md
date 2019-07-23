@@ -7,7 +7,8 @@ When it goes to programming I'm mostly tied to JVM. Among others, I know Java, P
 
 My other interests include foreign languages and history. Another, a more passive activity is watching sport, especially football (soccer) and ski jumping.
 
-Natural languages I know best are Polish and English. I also know German, Esperanto and a bit of Latin, but the latter only for reading, so if you'll try to speak to me then I'll be pretty embarassed. ;)  
+Natural languages I know best are Polish and English. I also know some German, Esperanto, I'm learning Italian and unsuccessfully trying to study Latin, but the latter only for reading, so don't try to speak to me. ;)  
 If you are also interested in languages, then you can follow me on [Duolingo](https://www.duolingo.com/alchrabas).
 
 You can contact me using email visible on the top bar of the page: aleksander@chrabasz.cz
+
