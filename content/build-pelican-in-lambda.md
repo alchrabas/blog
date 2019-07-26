@@ -25,7 +25,7 @@ It was working very well, so I decided to redo it in another technology ;) I've 
 
 I've decided to use AWS Lambda. It may sound a little strange, because Lambda is generally not the best thing to handle IO-intensive apps and creating a simple docker image to serve the same purpose would take me 20 seconds, but, as I've said, I'd like to start playing around with Lambda by creating code that does some real work. I'm sure the experience will be helpful in the future.
 
-# Select framework
+# Framework selection
 
 My first bet was Pulumi, as it's a really new framework that sounds like a dream for a developer - real Infrastructure as Code. When I want to create an EC2, I just need to write:
 
@@ -62,7 +62,7 @@ The first surprise (but maybe not that big) was the fact there's no Git in lambd
 So I was happy to put the following code line hoping it will just work:
 
 ```python
-    stdout, stderr = git.exec_command('clone', '--recurse-submodules', 
+    stdout, stderr = git.exec_command('clone', 
         "git@github.com:alchrabas/blog.git", "/tmp/blog", cwd="/tmp")
 ```
 
@@ -71,11 +71,28 @@ So I was happy to put the following code line hoping it will just work:
 But it didn't work, because it's not easy to configure SSH access in lambda. So I've decided to try the easier solution: clone the repo by https. There's no authorization needed, because the repository is public.
 
 ```python
-    stdout, stderr = git.exec_command('clone', '--recurse-submodules', 
+    stdout, stderr = git.exec_command('clone',
         "https://github.com/alchrabas/blog.git", "/tmp/blog", cwd="/tmp")
 ```
 
 Ok, that worked better. The important thing to know is that lambda's default directory is `/tmp/`, that's why I've put this as cwd and the blog directory a subfolder of it.
+
+Another small problem arose regarding the submodules. It looks like the git bundled in the library runs some perl code and Perl is unfortunately unavailable in Python Lambda:
+
+```
+Git stdout: , stderr: Cloning into '/tmp/blog'...
+/tmp/usr/libexec/git-core/git-submodule: line 168: /usr/bin/perl: No such file or directory
+```
+
+So I had two choices. Either try to completely change the way the code is cloned to the Lambda's filesystem (e.g. using Perl Lambda, look for some AWS service that suports Git OOTB (that'd actually make sense)) or just clone the submodule manually. I went with the second approach.
+
+```python
+    stdout, stderr = git.exec_command('clone', "https://github.com/alchrabas/crowsfoot.git",
+                                      "/tmp/blog/crowsfoot", cwd="/tmp/blog")
+```
+
+<p style="text-align:center">Two lines more and problem solved :D</p>
+
 
 Also, because the warmed up lambda is reusing the same filesystem if it's run again, I've added the code to remove `/tmp/blog` in case it already exists:
 
@@ -84,7 +101,7 @@ Also, because the warmed up lambda is reusing the same filesystem if it's run ag
         shutil.rmtree("/tmp/blog")
 ```
 
-Maybe it would be more efficient to just update the repo if it already exists, but that would be a microoptimization that doesn't give much, but require more testing.
+Maybe it would be more efficient to just update the repo if it already exists, but that would be a microoptimization that doesn't give much, but requires more testing.
 
 # Running pelican
 
@@ -94,12 +111,12 @@ That part was exactly what I needed:
 
 ```python
     os.chdir(blog_dir)
-    settings = read_settings("pelicanconf.py")
+    settings = read_settings("publishconf.py")
     pelican = Pelican(settings)
     pelican.run()
 ```
 
-# Set static web site from S3
+# Serve static web site from S3
 
 With the current setup I was able to get a compiled version of a blog in `/tmp/blog/output` directory inside of lambda function. Another step was to copy the files to S3 using the following function (assuming `path = /tmp/blog/output/` and `bucket_name` is the name of a bucket provisioned by serverless framework):
 
@@ -120,7 +137,7 @@ But this was possible by adding an optional parameter to `upload_file` method:
 ```python
 s3.upload_file(local_path, bucket_name, relative_path,
                ExtraArgs={
-                   "ContentType": mimetypes.guess_type(filename)[0]
+                   "ContentType": mimetypes.guess_type(filename, strict=False)[0] or "text/plain"
                })
 ```
 
@@ -187,7 +204,8 @@ To do it automatically (because for me if I can do it only in web console, then 
         HostedZoneName: ${self:custom.site_name}.
         Name:
           Fn::Join: [
-            "www.", [
+            "", [
+            "www.",
             {
               "Ref": "BlogBucket"
             },
@@ -201,8 +219,78 @@ The last part was to change the URL fired in GitHub's webhook to the URL of Lamb
 
 Tada! When I enter [http://chrabasz.cz](http://chrabasz.cz) I see the blog.
 
+But there's one important thing missing in this solution - lack of HTTPS support. To make it work, it's necessary to use CloudFront and write another bunch of YAML.
+
+# Use CloudFront to enable HTTPS
+
+There's not much to write about, just YAML:
+
+```yaml
+CloudFrontDistribution:
+      Type: AWS::CloudFront::Distribution
+      Properties:
+        DistributionConfig:
+          Comment: CloudFront Distribution for a static blog in S3
+          DefaultCacheBehavior:
+            TargetOriginId: BlogOrigin
+            AllowedMethods:
+              - GET
+              - HEAD
+            ViewerProtocolPolicy: 'redirect-to-https'
+            DefaultTTL: 30
+            MaxTTL: 60
+            ForwardedValues:
+              QueryString: false
+          ViewerCertificate:
+            AcmCertificateArn: ${self:custom.acm_certificate_arn}
+            SslSupportMethod: sni-only
+          Enabled: true
+          Aliases:
+            - ${self:custom.site_name}
+          DefaultRootObject: index.html
+          Origins:
+            - Id: BlogOrigin
+              DomainName: ${self:custom.site_name}.s3.amazonaws.com
+              CustomOriginConfig:
+                HTTPPort: 80
+                HTTPSPort: 443
+                OriginProtocolPolicy: http-only
+```
+
+I'll explain the most interesting parts:
+
+```yaml
+  ViewerCertificate:
+    AcmCertificateArn: ${self:custom.acm_certificate_arn}
+    SslSupportMethod: sni-only
+```
+
+The above code contains a reference to an SSL certificate I've created manually for my domain. Global CloudFront certificates should be created in `us-east-1` region. After it was done, I've copied ARN from the Web Console. It's a one-time job, so I'm ok with doing it manually.
+
+```yaml
+  Origins:
+    - Id: BlogOrigin
+      DomainName: ${self:custom.site_name}.s3.amazonaws.com
+      CustomOriginConfig:
+        HTTPPort: 80
+        HTTPSPort: 443
+        OriginProtocolPolicy: http-only
+```
+
+The code above specifies origin from which the files are served. In my case it's an S3 bucket.  There are two ways to access the files: as objects in S3 or from a static website. I'm using a non-website URL. I have to do it using http because (I think) my bucket name contains a dot (chrabasz.cz) so the AWS' certificate `*.s3.amazonwas.com` doesn't work. But I'm not 100% sure whether it's the reason, as I didn't test it.
+
+The last thing was to change AliasTarget, which earlier referenced website endpoint of S3 bucket and now it should lead to CloudFront:
+
+```yaml
+AliasTarget:
+  DNSName: {Fn::GetAtt: [ CloudFrontDistribution, DomainName ]}
+  HostedZoneId: Z2FDTNDATAQYW2
+```
+
+HostedZoneId is an ID global for whole CloudFormation, so again I've copied it from the docs.
+
 # Summary
 
 It was harder than I've evisioned, but I'm happy I've encountered and solved so many general problems regarding AWS. Regarding the use of Lambda - it would probably make more sense to use AWS Pipeline or something like that, because many things, like Git integration, would be handled OOTB. But I don't know if I'm ever going to need to use their Pipelines and I'm sure I'm going to use Lambdas.
 
-Also, the important thing missing in this solution is HTTPS support. To make it work, it's necessary to use CloudFront and write another bunch of yaml, so I'll write about it separately.
+As I've written in the beginning, [the repository with the working code is available on GitHub](https://github.com/alchrabas/build-pelican-in-aws-lambda).
