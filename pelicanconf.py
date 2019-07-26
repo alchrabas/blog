@@ -59,10 +59,6 @@ DISPLAY_INDEX_ON_MENU = False
 
 DEFAULT_PAGINATION = False
 
-PLUGIN_PATHS = ['pelican-plugins']
-PLUGINS = ['share_post']
-
-
 # Uncomment following line if you want document-relative URLs when developing
 # RELATIVE_URLS = True
 
