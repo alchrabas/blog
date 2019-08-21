@@ -49,22 +49,22 @@ In fact, these two are just excerpts from documentation of [Pulumi](https://www.
 
 Pulumi is very well documented, but... at least now (beginning of 2019) only for JS/TS. It appears that Python has different API from JS and, at the same time, it's pretty hard to combine Infrastructure definition in JS with Lambda code in Python. There's a nice example [here](https://mikhail.io/2018/07/getting-started-with-aws-lambda-in-pulumi/) of how to make Lambdas in many languages while using JS for infrastructure, but I found it not friendly and it wasn't obvious for me how to build a Python Lambda with dependencies.
 
-# Start coding
+That's why I've decided to use [Serverless Framework](https://serverless.com), which uses less friendly YAML for infrastructure, but is more stable and has good documentation.
+
+# Start coding Lambda in Serverless Framework
 
 The repository with the working code for site `chrabasz.cz` in region `eu-central-1` is available [here](https://github.com/alchrabas/build-pelican-in-aws-lambda).
 
-The first thing I needed to do was to clone my repository. It's a pretty small private blog, but it uses pelican plugins and a custom theme as submodules, so it's not the simplest setup.
+The first thing I needed to do in Lambda was to clone my repository. It's a pretty small private blog, but it uses a custom theme as a submodule, so it's not the simplest setup.
 
-The first surprise (but maybe not that big) was the fact there's no Git in lambda. Fortunately there exists a python library called [lambda-git](https://pypi.org/project/lambda-git/) that contains a bundled git and provides programmatic access to it through Python.
+The first surprise (maybe not that big) was the fact there's no Git in lambda. Fortunately there exists a python library called [lambda-git](https://pypi.org/project/lambda-git/) that contains a bundled git and provides programmatic access to it through Python.
 
 So I was happy to put the following code line hoping it will just work:
 
 ```python
-    stdout, stderr = git.exec_command('clone', 
+    stdout, stderr = git.exec_command('clone',
         "git@github.com:alchrabas/blog.git", "/tmp/blog", cwd="/tmp")
 ```
-
-(`--recurse-submodules` is to clone the subprojects, usually it's not needed)
 
 But it didn't work, because it's not easy to configure SSH access in lambda. So I've decided to try the easier solution: clone the repo by https. There's no authorization needed, because the repository is public.
 
@@ -73,7 +73,7 @@ But it didn't work, because it's not easy to configure SSH access in lambda. So 
         "https://github.com/alchrabas/blog.git", "/tmp/blog", cwd="/tmp")
 ```
 
-Ok, that worked better. The important thing to know is that lambda's default directory is `/tmp/`, that's why I've put this as cwd and the blog directory a subfolder of it.
+Ok, that worked better. The important thing to know is that lambda's default directory is `/tmp/`. That's why I've put this as cwd and the blog directory a subfolder of it.
 
 Another small problem arose regarding the submodules. It looks like the git bundled in the library runs some perl code and Perl is unfortunately unavailable in Python Lambda:
 
@@ -82,7 +82,7 @@ Git stdout: , stderr: Cloning into '/tmp/blog'...
 /tmp/usr/libexec/git-core/git-submodule: line 168: /usr/bin/perl: No such file or directory
 ```
 
-So I had two choices. Either try to completely change the way the code is cloned to the Lambda's filesystem (e.g. using Perl Lambda, look for some AWS service that suports Git OOTB (that'd actually make sense)) or just clone the submodule manually. I went with the second approach.
+So I had two choices. Either try to completely change the way the code is cloned to the Lambda's filesystem (e.g. use Perl Lambda, look for some AWS service that suports Git OOTB) or just clone the submodule manually. I went with the second approach.
 
 ```python
     stdout, stderr = git.exec_command('clone', "https://github.com/alchrabas/crowsfoot.git",
@@ -90,7 +90,6 @@ So I had two choices. Either try to completely change the way the code is cloned
 ```
 
 <p style="text-align:center">Two lines more and problem solved :D</p>
-
 
 Also, because the warmed up lambda is reusing the same filesystem if it's run again, I've added the code to remove `/tmp/blog` in case it already exists:
 
@@ -103,7 +102,7 @@ Maybe it would be more efficient to just update the repo if it already exists, b
 
 # Running pelican
 
-The next thing I had to do was to run the Pelican to compile the blog into a set of static files that could be put on S3. I hoped that will be a popular way of using it and explained in documentation, but it wasn't. After some time of reading pelican's code (the CLI scripts that call the real Python code) I've stumbled upon [an issue "Is there a way to generate a site programmatically?" on Pelican's GitHub](https://github.com/getpelican/pelican/issues/2211).
+The next thing I had to do was to run the Pelican to compile the blog into a set of static files that could be put on S3. Usually people use Makefile with CLI scripts that somehow run the Python. I hoped that running it programmatically will be a popular way of doing it and also explained in documentation, but it wasn't. After some time of searching and reading Pelican's code I've stumbled upon [an issue "Is there a way to generate a site programmatically?" on Pelican's GitHub](https://github.com/getpelican/pelican/issues/2211).
 
 That part was exactly what I needed:
 
@@ -116,7 +115,7 @@ That part was exactly what I needed:
 
 # Serve static web site from S3
 
-With the current setup I was able to get a compiled version of a blog in `/tmp/blog/output` directory inside of lambda function. Another step was to copy the files to S3 using the following function (assuming `path = /tmp/blog/output/` and `bucket_name` is the name of a bucket provisioned by serverless framework):
+With the current setup I was able to get a compiled version of a blog in `/tmp/blog/output` directory inside of lambda function. Another step was to copy the files to S3 using the following helper function (assuming `path = /tmp/blog/output/` and `bucket_name` is the name of a bucket provisioned by serverless framework):
 
 ```python
     for root, dirs, files in os.walk(path):
@@ -130,7 +129,7 @@ I've done it and there came another problem - all files were uploaded with file 
 
 ![Trying to download a file of type 'octet stream' instead of displaying the file in the browser](/images/build-pelican-in-lambda/octet-stream-s3.png)
 
-But this was possible by adding an optional parameter to `upload_file` method:
+But this was easy to fix by adding an optional parameter to `upload_file` method:
 
 ```python
 s3.upload_file(local_path, bucket_name, relative_path,
@@ -143,7 +142,7 @@ I've done so `ContentType` is guessed from the file's extension (luckily, `mimet
 
 # Make bucket publicly available
 
-It required some pretty standard (I hope) code in `serverless.yaml`:
+It required some pretty standard (I hope) YAML code in `serverless.yaml`:
 
 ```yaml
     BlogBucketPolicy:
@@ -178,9 +177,7 @@ It required some pretty standard (I hope) code in `serverless.yaml`:
 
 This part was done manually, because it needs to be done once and with great care. I've changed NameServer of my domain hosted on OVH to point to AWS servers. I won't elaborate on that, because it's explained well [in this article](https://eshlox.net/2017/12/29/how-to-create-aws-route53-hosted-zone-using-domain-from-ovh).
 
-Then I've manually configured a record set as explained on [the AWS S3 doc page](https://docs.aws.amazon.com/AmazonS3/latest/dev/website-hosting-custom-domain-walkthrough.html).
-
-To do it automatically (because for me if I can do it only in web console, then it's like I don't know how to do it at all, because it's not repeatable), I had to put the following piece of code in `serverless.yml`:
+To create a record set automatically, I had to put the following piece of code in `serverless.yml`:
 
 ```yaml
     DnsRecord:

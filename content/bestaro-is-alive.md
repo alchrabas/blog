@@ -1,10 +1,10 @@
-Title: Bestaro is alive! After Facebook verification
+Title: Bestaro is alive!
 Slug: bestaro-is-alive
 Date: 2019-08-21 23:05:00
 Tags: bestaro, facebook, graph-api
 Category: bestaro
 Authors: Aleksander Chrabąszcz
-Summary: After successful Facebook API Verification there is a new hope for Bestaro
+Summary: After a successful Facebook API Verification there is a new hope for Bestaro
 
 I didn't believe it's possible to get access to Facebook Graph API for a small, non-profit initiative.
 
