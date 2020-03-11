@@ -8,7 +8,7 @@ Summary: After a successful Facebook API Verification there is a new hope for Be
 
 I didn't believe it's possible to get access to Facebook Graph API for a small, non-profit initiative.
 
-That's why I didn't do anything for half a year after writing [the previous sad post](({filename}facebook-api-killed-bestaro.md)), especially because the whole process was not clear until july and then I've heard about many rejections and people waiting weeks for a decision.
+That's why I didn't do anything for half a year after writing [the previous sad post]({filename}facebook-api-killed-bestaro.md), especially because the whole process was not clear until july and then I've heard about many rejections and people waiting weeks for a decision.
 
 But I've tried and succeded and I'll explain how it happened.
 
