@@ -55,7 +55,13 @@ The competition was pretty fair and I've seen I was getting an upper hand, so I 
 
 # Video
 
-[Official link here](https://vod.tvp.pl/video/jeden-z-dziesieciu,odc-12130,59532356). I'll soon download and make a mirror.
+Below I've reuploaded the recording so it will never disappear.
+
+<video controls="controls" src="/images/jeden-z-dziesieciu-vol2/recording.webm" type="video/webm" width="100%">
+Your browser doesn't support HTML5 video player
+</video>
+
+[Official link is here](https://vod.tvp.pl/video/jeden-z-dziesieciu,odc-12130,59532356), but it might become outdated some time after airing.
 
 # Aftermath
 
