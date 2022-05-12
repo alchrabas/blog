@@ -118,13 +118,17 @@ A: A1 (the correct answer was B1)
 
 # Video
 
-[Official link here](https://vod.tvp.pl/video/jeden-z-dziesieciu,odc-12130,59532356)
+Below I've reuploaded the recording so it will never disappear.
 
-I'll soon download it and make a mirror.
+<video controls="controls" src="/images/jeden-z-dziesieciu-vol2/recording.webm" type="video/webm" width="100%">
+Your browser doesn't support HTML5 video player
+</video>
+
+[Official link is here](https://vod.tvp.pl/video/jeden-z-dziesieciu,odc-12130,59532356), but it might become outdated some time after airing.
 
 # Aftermath
 
-I didn't know if bare 113 points will be just enough to stay on the leaderboard, so I was pretty confident that I have another four-year break before the next attempt.
+I didn't know if bare 113 points will be just enough to stay on the leaderboard, so I was pretty confident that I have another four-year break before another attempt.
 
 I took the main prize: coffee machine (sadly, I don't drink coffee), cosmetics (I was running out of the ones won last time) and some money. Then I decided to have some fun in Lublin.
 
