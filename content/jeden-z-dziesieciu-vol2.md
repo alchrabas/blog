@@ -55,6 +55,8 @@ The competition was pretty fair and I've seen I was getting an upper hand, so I 
 
 # My questions
 
+I got seven questions in the first and second phase, which is close to average.
+
 (I put my additional comments in the parentheses, they were not a part of question or answer)
 
 Q: When somebody is riding a horse without a saddle, it's called "jedzie na..."  
@@ -105,16 +107,16 @@ Q: (taken for myself) How many angelic trumpets infomed about the end of the wor
 A: Seven
 
 Q: Who painted "The School of Athens"?  
-A: Leonardo da Vinci (my first mistake, the correct answer was Rafael Santi)
+A: Rafael Santi (my first mistake, I've said Leonardo da Vinci even though I was pretty sure it's not him)
 
 Q: In which city reigned king Sisyphus?  
 A: Corinth
 
 Q: Who constructed a steam locomotive called "Rocket"?  
-A: I gave no answer (correct answer was Stevenson)
+A: Stevenson (I gave no answer. Apparently, I've read Stevenson's Rocket was in Science Museum in London till 2018, but I visited it in 2019)
 
 Q: Which format of paper is bigger: A1 or B1?  
-A: A1 (the correct answer was B1)
+A: B1 (I said A1, probably misled by the fact that it's numbers that go in reverse order)
 
 # Video
 
@@ -123,7 +125,7 @@ Below I've reuploaded the recording so it will never disappear.
 <video controls="controls" src="/images/jeden-z-dziesieciu-vol2/recording.webm" type="video/webm" width="100%">
 Your browser doesn't support HTML5 video player
 </video>
-
+<br>
 [Official link is here](https://vod.tvp.pl/video/jeden-z-dziesieciu,odc-12130,59532356), but it might become outdated some time after airing.
 
 # Aftermath
